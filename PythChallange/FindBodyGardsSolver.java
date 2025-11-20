@@ -1,4 +1,4 @@
-//  Class author:  Raley Wilkin
+//  Class author:  Raley Wilkin 
 //  Date created:  9/4/2025
 //  General description: This program takes in a string and an int and then finds all places where there is
 //  a lowercase letter with a certain number of uppercase letters on either side (with lower cases surrounding 
