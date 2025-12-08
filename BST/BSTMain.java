@@ -46,6 +46,10 @@ public class BSTMain {
         tree.insert(100);
         System.out.println(tree.toString()); // Should print perfect tree
         System.out.println("Current root: " + tree.getRoot().toInt()); // Should still print 60
+        tree.insert(190);
+        System.out.println(tree.toString()); // Should print tree with 75 added
+        tree.remove(80);
+        System.out.println(tree.toString()); // Should print tree with 80 removed
     }
 }
 
