@@ -1,7 +1,7 @@
 package BST;
 
 // By: Raley Wilkin
-// Date: 2024-05-15
+// Date: 12-12-2025
 // Description: Node class for BST
 
 public class Node{
