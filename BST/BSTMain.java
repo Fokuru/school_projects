@@ -50,6 +50,31 @@ public class BSTMain {
         System.out.println(tree.toString()); // Should print tree with 75 added
         tree.remove(80);
         System.out.println(tree.toString()); // Should print tree with 80 removed
+
+        tree.remove(20);
+        tree.remove(40);
+        tree.remove(70);
+        tree.remove(190);
+        System.out.println(tree.toString()); // Should print tree with several nodes removed
+
+        tree.insert(200);
+        tree.insert(250);
+        tree.insert(300);
+        System.out.println(tree.toString()); // Should print tree with more nodes added
+        tree.rotateLeft(200);
+        System.out.println(tree.toString()); // Should print tree with 200 rotated left
+        tree.rotateRight(250);
+        System.out.println(tree.toString()); // Should print tree with 250 rotated right
+        tree.insert(195);
+        System.out.println(tree.toString()); // Should print tree with 240 added
+        tree.rotateRight(200);
+        System.out.println(tree.toString()); // Should print tree with 200 rotated right
+        System.out.println("Height of 195: " + tree.getHeight(195)); // Should print 3
+        System.out.println("Balance of 195: " + tree.getBalance(195)); // Should print -3
+        System.out.println("Height of 250: " + tree.getHeight(250)); // Should print 2
+        System.out.println("Balance of 250: " + tree.getBalance(250)); // Should print -1
+        System.out.println("Height of 60: " + tree.getHeight(60)); // Should print 1
+        System.out.println("Balance of 60: " + tree.getBalance(60)); // Should print -4
     }
 }
 

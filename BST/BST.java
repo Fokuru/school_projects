@@ -1,7 +1,7 @@
 package BST;
 
 // By: Raley Wilkin
-// Date: 2024-05-15
+// Date: 12-2024
 // Description: Binary Search Tree (BST) class
 
 public class BST {
@@ -187,6 +187,151 @@ public class BST {
     // Post Condition: returns the root node
     public Node getRoot() {
         return this.root;
+    }
+
+    // Pre Condition: None
+    // Post Condition: Rotates the tree such that the subRoot is replaced with it's right 
+    // child with subRoot becoming the left child of the new subRoot. prev now points to the new subRoot.
+    public boolean rotateLeft(int node) {
+        Node target = findNode(this.root, node);
+        if (target == null) return false;
+        Node parent = findParent(this.root, node);
+        rotateLeft(target, parent);
+        return true;
+    }
+
+    // Pre Condition: None
+    // Post Condition: finds the node with the given key
+    private Node findNode(Node root, int key) {
+        if (root == null) return null;
+        if (key == root.key) return root;
+        if (key < root.key) return findNode(root.left, key);
+        return findNode(root.right, key);
+    }
+
+    // Pre Condition: None
+    // Post Condition: finds the parent of the node with the given key
+    private Node findParent(Node root, int key) {
+        if (root == null) return null;
+        if ((root.left != null && root.left.key == key) || 
+            (root.right != null && root.right.key == key)) {
+            return root;
+        }
+        if (key < root.key) return findParent(root.left, key);
+        return findParent(root.right, key);
+    }
+
+    // Pre Condition: None
+    // Post Condition: Rotates the tree such that the subRoot is replaced with it's left 
+    // child with subRoot becoming the right child of the new subRoot. prev now points to the new subRoot.
+    public boolean rotateRight(int node) {
+        Node target = findNode(this.root, node);
+        if (target == null) return false;
+        Node parent = findParent(this.root, node);
+        rotateRight(target, parent);
+        return true;
+    }
+
+    // Pre Condition: None
+    // Post Condition: Rotates the tree such that the subRoot is replaced with it's right 
+    // child with subRoot becoming the left child of the new subRoot. prev now points to the new subRoot.
+
+    private void rotateLeft(Node subRoot, Node prev) {
+        if (subRoot == null || subRoot.right == null) return;
+
+        Node newRoot = subRoot.right;
+        // Move newRoot's left subtree to subRoot's right
+        subRoot.right = newRoot.left;
+        // Make subRoot the left child of newRoot
+        newRoot.left = subRoot;
+
+        // Attach newRoot to parent (prev) or update tree root
+        if (prev == null) {
+            this.root = newRoot;
+        } else if (prev.left == subRoot) {
+            prev.left = newRoot;
+        } else if (prev.right == subRoot) {
+            prev.right = newRoot;
+        }
+    }
+
+    
+
+    // Pre Condition: None
+    // Post Condition: Rotates the tree such that the subRoot is replaced with it's left 
+    // child with subRoot becoming the right child of the new subRoot. prev now points to the new subRoot.
+    private void rotateRight(Node subRoot, Node prev){
+        if (subRoot == null || subRoot.left == null) return;
+
+        Node newRoot = subRoot.left;
+        // Move newRoot's right subtree to subRoot's left
+        subRoot.left = newRoot.right;
+        // Make subRoot the right child of newRoot
+        newRoot.right = subRoot;
+
+        // Attach newRoot to parent (prev) or update tree root
+        if (prev == null) {
+            this.root = newRoot;
+        } else if (prev.left == subRoot) {
+            prev.left = newRoot;
+        } else if (prev.right == subRoot) {
+            prev.right = newRoot;
+        }
+    }
+
+    // Pre Condition: None
+    // Post Condition: Returns the height of the node. If node doesn't exist, return 0.
+    private int height(Node node){
+        if(node == null){
+            return 0;
+        }
+        return getDepth(this.root, node, 0);
+    }
+
+    private int getDepth(Node current, Node target, int depth){
+        if(current == null) return 0;
+        if(current == target) return depth;
+        int leftDepth = getDepth(current.left, target, depth + 1);
+        if(leftDepth != 0) return leftDepth;
+        return getDepth(current.right, target, depth + 1);
+    }
+
+    // Pre Condition: None
+    // Post Condition: Returns the balance of the node. If node doesn't exist, return 0.
+    private int balance(Node node){
+        if(node == null){
+            return 0;
+        }
+        
+        Node left = node.left;
+        Node right = node.right;
+
+        while (left != null && left.left != null){
+            left = left.left;
+        }
+        while (right != null && right.right != null){
+            right = right.right;
+        }
+
+        System.out.println(((left == null) ? "DNE" : left.key) + " - " + ((right == null) ? "DNE" : right.key) + " --- " + getDepth(node, left, 0) + " - " + getDepth(node, right, 0));
+
+        return getDepth(node, left, 0) - getDepth(node, right, 0);
+    }
+
+    // Pre Condition: None
+    // Post Condition: Returns the height of the node. If node doesn't exist, return -1.
+    public int getHeight(int key) {
+        Node target = findNode(this.root, key);
+        if(target == null) return 0;
+        return height(target);
+    }
+
+    // Pre Condition: None
+    // Post Condition: Returns the balance of the node. If node doesn't exist, return -1.
+    public int getBalance(int key){
+        Node target = findNode(this.root, key);
+        if(target == null) return 0;
+        return balance(target);
     }
 
 }
