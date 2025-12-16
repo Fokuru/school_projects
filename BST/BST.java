@@ -1,7 +1,7 @@
 package BST;
 
 // By: Raley Wilkin
-// Date: 12-12-2025
+// Date: 12-16-2025
 // Description: Binary Search Tree (BST) class
 
 public class BST {
@@ -280,49 +280,28 @@ public class BST {
     }
 
     // Pre Condition: None
-    // Post Condition: Returns the height of the node. If node doesn't exist, return 0.
+    // Post Condition: Returns the height of the subtree rooted at node (leaf = 0). If node is null, return -1.
     private int height(Node node){
         if(node == null){
-            return 0;
+            return -1;
         }
-        return getDepth(this.root, node, 0);
-    }
-
-    private int getDepth(Node current, Node target, int depth){
-        if(current == null) return 0;
-        if(current == target) return depth;
-        int leftDepth = getDepth(current.left, target, depth + 1);
-        if(leftDepth != 0) return leftDepth;
-        return getDepth(current.right, target, depth + 1);
+        return Math.max(height(node.left), height(node.right)) + 1;
     }
 
     // Pre Condition: None
-    // Post Condition: Returns the balance of the node. If node doesn't exist, return 0.
+    // Post Condition: Returns the balance of the node (height of left subtree - height of right subtree). If node doesn't exist, return 0.
     private int balance(Node node){
         if(node == null){
             return 0;
         }
-        
-        Node left = node.left;
-        Node right = node.right;
-
-        while (left != null && left.left != null){
-            left = left.left;
-        }
-        while (right != null && right.right != null){
-            right = right.right;
-        }
-
-        System.out.println(((left == null) ? "DNE" : left.key) + " - " + ((right == null) ? "DNE" : right.key) + " --- " + getDepth(node, left, 0) + " - " + getDepth(node, right, 0));
-
-        return getDepth(node, left, 0) - getDepth(node, right, 0);
+        return height(node.left) - height(node.right);
     }
 
     // Pre Condition: None
     // Post Condition: Returns the height of the node. If node doesn't exist, return -1.
     public int getHeight(int key) {
         Node target = findNode(this.root, key);
-        if(target == null) return 0;
+        if(target == null) return -1;
         return height(target);
     }
 

@@ -1,7 +1,7 @@
 package BST;
 
 // By: Raley Wilkin
-// Date: 12-12-2025
+// Date: 12-16-2025
 // Description: Main class to test BST
 
 public class BSTMain {
@@ -71,10 +71,18 @@ public class BSTMain {
         System.out.println(tree.toString()); // Should print tree with 200 rotated right
         System.out.println("Height of 195: " + tree.getHeight(195)); // Should print 3
         System.out.println("Balance of 195: " + tree.getBalance(195)); // Should print -3
-        System.out.println("Height of 250: " + tree.getHeight(250)); // Should print 2
+        System.out.println("Height of 250: " + tree.getHeight(250)); // Should print 1
         System.out.println("Balance of 250: " + tree.getBalance(250)); // Should print -1
-        System.out.println("Height of 60: " + tree.getHeight(60)); // Should print 1
+        System.out.println("Height of 60: " + tree.getHeight(60)); // Should print 5
         System.out.println("Balance of 60: " + tree.getBalance(60)); // Should print -4
+        System.out.println("Height of 300: " + tree.getHeight(300)); // Should print 0
+        System.out.println("Height of 20: " + tree.getHeight(20)); // Should print -1
+        tree.rotateLeft(100);
+        System.out.println(tree.toString()); // Should print tree with 100 rotated left
+        tree.rotateLeft(60);
+        System.out.println(tree.toString()); // Should print tree with 60 rotated left
+        tree.rotateLeft(200);
+        System.out.println(tree.toString()); // Should print tree with 200 rotated left
     }
 }
 
