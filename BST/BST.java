@@ -52,6 +52,8 @@ public class BST {
         insert(key, this.root, new java.util.ArrayList<>());
     }
 
+    // Pre Condition: nodes is the path of nodes to check for balancing
+    // Post Condition: rebalances the tree along the given path
     private void rebalance(ArrayList<Node> nodes) {
         // Keep rebalancing until the entire path and tree is balanced
         boolean changed = true;
@@ -79,6 +81,8 @@ public class BST {
         }
     }
     
+    // Pre Condition: current is the node to check for balancing
+    // Post Condition: performs balancing on the given node if needed
     private boolean performBalance(Node current) {
         int bal = balance(current);
         if (bal > 1) {
