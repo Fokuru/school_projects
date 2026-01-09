@@ -61,14 +61,6 @@ public class BSTMain {
         tree.insert(250);
         tree.insert(300);
         System.out.println(tree.toString()); // Should print tree with more nodes added
-        tree.rotateLeft(200);
-        System.out.println(tree.toString()); // Should print tree with 200 rotated left
-        tree.rotateRight(250);
-        System.out.println(tree.toString()); // Should print tree with 250 rotated right
-        tree.insert(195);
-        System.out.println(tree.toString()); // Should print tree with 240 added
-        tree.rotateRight(200);
-        System.out.println(tree.toString()); // Should print tree with 200 rotated right
         System.out.println("Height of 195: " + tree.getHeight(195)); // Should print 3
         System.out.println("Balance of 195: " + tree.getBalance(195)); // Should print -3
         System.out.println("Height of 250: " + tree.getHeight(250)); // Should print 1
@@ -77,12 +69,35 @@ public class BSTMain {
         System.out.println("Balance of 60: " + tree.getBalance(60)); // Should print -4
         System.out.println("Height of 300: " + tree.getHeight(300)); // Should print 0
         System.out.println("Height of 20: " + tree.getHeight(20)); // Should print -1
-        tree.rotateLeft(100);
-        System.out.println(tree.toString()); // Should print tree with 100 rotated left
-        tree.rotateLeft(60);
-        System.out.println(tree.toString()); // Should print tree with 60 rotated left
-        tree.rotateLeft(200);
-        System.out.println(tree.toString()); // Should print tree with 200 rotated left
+        System.out.println(tree.toString());
+
+        tree.insert(350);
+        tree.insert(400);
+        tree.insert(450);
+        tree.insert(500);
+        System.out.println(tree.toString()); 
+        tree.insert(550);
+        tree.insert(600);
+        tree.insert(650);
+        tree.insert(700);
+        System.out.println(tree.toString()); 
+
+        tree.insert(30);
+        tree.insert(28);
+        tree.insert(25);
+        tree.insert(22);
+        System.out.println(tree.toString()); 
+        tree.insert(20);
+        tree.insert(18);
+        tree.insert(15);
+        tree.insert(10);
+        System.out.println(tree.toString()); 
+
+        tree.insert(8);
+        tree.insert(5);
+        tree.insert(2);
+        tree.insert(0);
+        System.out.println(tree.toString()); 
     }
 }
 

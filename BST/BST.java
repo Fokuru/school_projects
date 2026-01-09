@@ -1,5 +1,7 @@
 package BST;
 
+import java.util.ArrayList;
+
 // By: Raley Wilkin
 // Date: 12-16-2025
 // Description: Binary Search Tree (BST) class
@@ -15,7 +17,7 @@ public class BST {
 
     // Pre Condition: root is the root of the subtree
     // Post Condition: inserts a key into the BST
-    private void insert(int key, Node root){
+    private void insert(int key, Node root, ArrayList<Node> nodes){
         // If tree is empty, set the root
         if (this.root == null) {
             this.root = new Node(key);
@@ -25,14 +27,20 @@ public class BST {
         if (key < root.key) {
             if (root.left == null) {
                 root.left = new Node(key);
+                nodes.add(root.left);
+                rebalance(nodes);
             } else {
-                insert(key, root.left);
+                nodes.add(root.left);
+                insert(key, root.left, nodes);
             }
         } else if (key > root.key) {
             if (root.right == null) {
                 root.right = new Node(key);
+                nodes.add(root.right);
+                rebalance(nodes);
             } else {
-                insert(key, root.right);
+                nodes.add(root.right);
+                insert(key, root.right, nodes);
             }
         }
         // duplicates: do nothing
@@ -41,7 +49,58 @@ public class BST {
     // Pre Condition: None
     // Post Condition: inserts a key into the BST
     public void insert(int key) {
-        insert(key, this.root);
+        insert(key, this.root, new java.util.ArrayList<>());
+    }
+
+    private void rebalance(ArrayList<Node> nodes) {
+        // Keep rebalancing until the entire path and tree is balanced
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            // Check nodes in the insertion path
+            for (int i = nodes.size() - 1; i >= 0; i--) {
+                Node current = findNode(this.root, nodes.get(i).key);
+                if (current == null) continue;
+                
+                if (performBalance(current)) {
+                    changed = true;
+                }
+            }
+            // Also check the root and its ancestors
+            Node current = this.root;
+            while (current != null) {
+                if (performBalance(current)) {
+                    changed = true;
+                }
+                // Move up the tree by finding parent
+                Node parent = (current.key == this.root.key) ? null : findParent(this.root, current.key);
+                current = parent;
+            }
+        }
+    }
+    
+    private boolean performBalance(Node current) {
+        int bal = balance(current);
+        if (bal > 1) {
+            // Left heavy
+            if (balance(current.left) < 0) {
+                // Left-Right case
+                rotateLeft(current.left, findParent(this.root, current.left.key));
+            }
+            // Left-Left case
+            rotateRight(current, findParent(this.root, current.key));
+            return true;
+        } else if (bal < -1) {
+            // Right heavy
+            if (balance(current.right) > 0) {
+                // Right-Left case
+                rotateRight(current.right, findParent(this.root, current.right.key));
+            }
+            // Right-Right case
+            rotateLeft(current, findParent(this.root, current.key));
+            return true;
+        }
+        return false;
     }
 
     // Pre Condition: None
@@ -65,19 +124,38 @@ public class BST {
     // Pre Condition: None
     // Post Condition: removes a node with the given key and returns the key, or -1 if not found
     int remove(int key) {
-        return remove(key, root);
+        ArrayList<Node> path = new ArrayList<>();
+        buildPath(this.root, key, path);
+        if (path.isEmpty()) {
+            return -1;
+        }
+        this.root = removeNode(this.root, key);
+        rebalance(path);
+        return key;
     }
 
     // Pre Condition: None
-    // Post Condition: removes a node with the given key and returns the key, or -1 if not found
-    private int remove(int key, Node root){
-        // Ensure the key exists in the tree first
-        if (search(key, this.root) == false) {
-            return -1;
+    // Post Condition: builds the path to a node with the given key
+    private boolean buildPath(Node node, int key, ArrayList<Node> path) {
+        if (node == null) return false;
+        
+        path.add(node);
+        if (node.key == key) {
+            return true;
         }
-        // Remove the key from the tree and update the root reference
-        this.root = removeNode(this.root, key);
-        return key;
+        
+        if (key < node.key) {
+            if (buildPath(node.left, key, path)) {
+                return true;
+            }
+        } else {
+            if (buildPath(node.right, key, path)) {
+                return true;
+            }
+        }
+        
+        path.remove(path.size() - 1);
+        return false;
     }
 
     // Pre Condition: node is the root of the subtree, key is the key to remove
