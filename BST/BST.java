@@ -3,7 +3,7 @@ package BST;
 import java.util.ArrayList;
 
 // By: Raley Wilkin
-// Date: 12-16-2025
+// Date: 1-9-2026
 // Description: Binary Search Tree (BST) class
 
 public class BST {
