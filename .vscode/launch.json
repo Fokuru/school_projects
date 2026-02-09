@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "school_projects_b9b94ac3"
+        },
+        {
+            "type": "java",
             "name": "FindBodyGardsSolver",
             "request": "launch",
             "mainClass": "FindBodyGardsSolver",
