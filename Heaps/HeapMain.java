@@ -26,5 +26,12 @@ public class HeapMain {
         heap.add(-10);
         heap.add(0);
         System.out.println(heap.toString());
+
+        Heap heap3 = new Heap(10);
+
+        for (int i = 0; i < 10; i++) {
+            heap3.add((int) (Math.random() * 100));
+        }
+        System.out.println(heap3.toString());
     }
 }
