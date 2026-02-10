@@ -1,6 +1,6 @@
 
 
-public class Main {
+public class HeapMain {
     public static void main(String[] args) {
         Heap heap = new Heap(10);
         heap.add(5);
@@ -23,5 +23,8 @@ public class Main {
         heap.add(9);
         System.out.println(heap.toString()); // Should print the heap in array form
         System.out.println("Top element: " + heap.getTop());
+        heap.add(-10);
+        heap.add(0);
+        System.out.println(heap.toString());
     }
 }

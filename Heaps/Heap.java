@@ -39,6 +39,10 @@ public Heap(int[] arr) {
 // Pre: toAdd is an integer
 // Post: adds the given element to the heap and maintains heap properties
 public void add(int toAdd) {
+    if (toAdd <= 0) {
+        System.out.println("Can't add " + toAdd + ", sorry!");
+        return;
+    }
 
     System.out.println("Adding " + toAdd + " to " + this.toString());
 
