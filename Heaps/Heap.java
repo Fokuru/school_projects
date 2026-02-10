@@ -148,6 +148,8 @@ public String toString() {
 
 }
 
+// Pre: none
+// Post: returns the maximum element (the top of the heap) or -1 if the heap is empty
 public int getTop() {
     if (arr.length == 0) {
         return -1;
