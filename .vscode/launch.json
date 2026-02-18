@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HashMain",
+            "request": "launch",
+            "mainClass": "HashMain",
+            "projectName": "school_projects_b9b94ac3"
+        },
+        {
+            "type": "java",
             "name": "HeapMain",
             "request": "launch",
             "mainClass": "HeapMain",
