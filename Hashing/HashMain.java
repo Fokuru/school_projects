@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class HashMain {
     
     public static void main(String[] args) {
@@ -46,14 +48,47 @@ public class HashMain {
         newHashTable.print();
         System.out.println(" ");
         System.out.println(" ");
+        newHashTable.save();
 
+         
+        HashTable newNewHashTable = new HashTable();
+        newNewHashTable.put("Test");
+        newNewHashTable.put("Test");
+        newNewHashTable.put("TestTest");
+        newNewHashTable.print();
+        newNewHashTable.save();
 
+        System.out.println(" ");
+        System.out.println(" ");
 
         hashTable.load();
         System.out.println("Contents of the HashTable after loading:");
         hashTable.print();
         System.out.println(" ");
+        System.out.println(" ");
         // Why does it do that???? I don't understand...
+        
+        newHashTable.save();
+
+        hashTable.load();
+        System.out.println("Contents of the HashTable after loading a second time:");
+        hashTable.print();
+        System.out.println(" ");
+        System.out.println(" ");
+        // Why does it do that???? I don't understand...
+
+
+        Iterator iterator = hashTable.keys();
+        System.out.println("Iterating through the keys in the HashTable:");
+        while (iterator.hasNext()) {
+            String key = (String)iterator.next();
+            if (key == null) continue;
+            String value = hashTable.get(key);
+            System.out.print(value + ", ");
+        }
+
+        System.out.println(" ");
+        System.out.println(" ");
 
     }
 }

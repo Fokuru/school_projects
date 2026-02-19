@@ -2,16 +2,24 @@ import java.util.*;
 import java.io.*;
 
 public class HashTable {
-    int tableSize = 13;
-    String[][] keys = new String[tableSize][];
-    int currentHashes = 0;
+    private int tableSize = 13;
+    private String[][] keys = new String[tableSize][];
+    private int currentHashes = 0;
 
 // Methods you have to supply:
 
+  // Pre: Value != null
+  // Post: Adds the value to the hash table. 
+  // If the value is already in the hash table, 
+  // it should not be added again.
   public void put(String value) {
     put(value, "");
   }
 
+  // Pre: Key != null, Value != null
+  // Post: Adds the key-value pair to the hash table.
+  // If the key is already in the hash table,
+  // the value should be updated to the new value.
   public void put(String key, String value) {
     if (currentHashes > tableSize * 0.66) {
         int newSize = tableSize * 2;
@@ -37,6 +45,9 @@ public class HashTable {
     }
   }
 
+  // Pre: Key != null
+  // Post: Resizes the hash table to the new size and 
+  // rehashes all existing key-value pairs.
   private void resize(int newSize) {
     String[][] newKeys = new String[newSize][];
     for (int i = 0; i < keys.length; i++) {
@@ -54,6 +65,9 @@ public class HashTable {
     keys = newKeys;
   }
 
+  // Pre: Key != null
+  // Post: Returns the value associated with the key, 
+  // or null if the key is not in the hash table.
   public String get(String key) {
     int hashCode = key.hashCode();
     int arrayIndex = Math.abs(hashCode) % tableSize;
@@ -70,6 +84,9 @@ public class HashTable {
     return null;
   }
 
+  // Pre: Key != null
+  // Post: Rehashes all key-value pairs in the cluster following the 
+  // removed slot to ensure they can still be found.
   private void rehashFrom(int startIndex) {
     int idx = startIndex;
     while (keys[idx] != null) {
@@ -81,6 +98,9 @@ public class HashTable {
     }
   }
 
+  // Pre: Key != null
+  // Post: Removes the key and its associated value from the hash table,
+  // and returns the value. If the key is not in the hash table, returns null
   public String remove(String key){
     int hashCode = key.hashCode();
     int arrayIndex = Math.abs(hashCode) % tableSize;
@@ -107,6 +127,8 @@ public class HashTable {
 // the save and load functions already provided as well as the print function 
 // described below.
 
+  // Pre: None
+  // Post: Returns an iterator that iterates through all the keys in the hash table.
   public Iterator keys() {
     ArrayList<String> keys = new ArrayList<String>();
     for (int i = 0; i < this.keys.length; i++) {
@@ -124,6 +146,8 @@ public class HashTable {
 // Use the iterator to iterate through the hashTable and System.out.println 
 // all the key value pairs. Each key value pair should go on it’s own line.
 
+  // Pre: None
+  // Post: Prints all key-value pairs in the hash table in order.
   public void print(){
     Iterator iterator = keys();
     java.util.LinkedHashMap<String,String> map = new java.util.LinkedHashMap<>();
