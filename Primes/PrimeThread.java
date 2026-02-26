@@ -17,7 +17,7 @@ public class PrimeThread{
         }
         public void run() {
             count = countPrimes(min,max);
-            System.out.println("There are " + count + 
+            System.out.println("\n" + "There are " + count + 
                     " primes between " + min + " and " + max);
             sendBack(count);
         }
@@ -34,8 +34,19 @@ public class PrimeThread{
      * Count the primes between min and max, inclusive.
      * you need to implement this!
      */
+    // Pre: min and max are non-negative integers with min <= max.
+    // Post: Returns the number of prime numbers between min and max, inclusive.
     private static int countPrimes(int min, int max) {
-        return 0;
+        int count = 0;
+
+        for(int num = min; num <= max; num++) {
+            if (isPrime(num)) {
+                count++;
+                System.out.print(num + "  ");
+            }
+        }
+
+        return count;
     }
 
     /**
@@ -43,18 +54,28 @@ public class PrimeThread{
      * x is assumed to be greater than 1.
      * You need to implement this!
      */
+    // Pre: x is an integer greater than 1.
+    // Post: Returns true if x is prime, and false otherwise.
     private static boolean isPrime(int x) {
-        boolean isPrime = false;
-        return isPrime;
+
+        for (int i = 2; i < x; i++){
+            // System.out.print(x + "%" + i + " : " + x%1 + " ");
+            if (x % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void test(){
         int num = 0;
-        for(int i=0; i<=50; i++){  
-           num =num+i;
+        for(int i = 0; i <= 50; i++){  
+           num = num + i;
            System.out.print(num+", ");
         }  
      }
+
     public static void main(String args[]) {  
         int processors = Runtime.getRuntime().availableProcessors();
         if (processors == 1)
@@ -69,14 +90,27 @@ public class PrimeThread{
         int threads = reader.nextInt();
         
         
-        
-        
        //Starting time
        Instant start = Instant.now();
        
        //comment the following line out once you've seen how this works.
-       new PrimeThread().test();
+       //new PrimeThread().test();
+
+       CountPrimesThread[] thread = new CountPrimesThread[threads];
+       for(int i = 0; i < thread.length; i++) {
+            thread[i] = new CountPrimesThread(i*max/threads, (i+1)*max/threads);
+            thread[i].start();
+       }
+
+       for (int i = 0; i < threads; i++) {
+        try {
+            thread[i].join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+       }
        
+       //countPrimes(0, max);
        
        //Write the code for spawning the desired number of CountPrimeThreads
        //be sure to divide the work among the specified number of threads efficiently. Use .join() to check to see if a thread is finished.
@@ -87,5 +121,6 @@ public class PrimeThread{
        long time = Duration.between(start, end).toMillis();
        System.out.println();
        System.out.println(time+" Milli seconds");
+
     }
 }
