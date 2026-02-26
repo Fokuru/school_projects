@@ -60,6 +60,12 @@ public class HashMain {
 
         System.out.println(" ");
         System.out.println(" ");
+        
+        newHashTable.remove("Larry");
+        System.out.println("Removed Larry. He was uneeded.");
+        newHashTable.print();
+        System.out.println(" ");
+        System.out.println(" ");
 
         hashTable.load();
         System.out.println("Contents of the HashTable after loading:");
@@ -75,7 +81,6 @@ public class HashMain {
         hashTable.print();
         System.out.println(" ");
         System.out.println(" ");
-        // Why does it do that???? I don't understand...
 
 
         Iterator iterator = hashTable.keys();
